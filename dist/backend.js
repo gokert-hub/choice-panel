@@ -132,6 +132,20 @@ async function resolveConnection(config, userId) {
   return { connection, connections };
 }
 
+async function runQuietWithTransientRetry(request) {
+  try {
+    return await spindle.generate.quiet(request);
+  } catch (err) {
+    const message = String(err?.message || err);
+    if (!/connection closed|closed before|upstream|network|stream|socket|timeout|temporar/i.test(message)) {
+      throw err;
+    }
+    spindle.log.warn(`Choice Panel transient generation error; retrying once: ${message}`);
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    return spindle.generate.quiet(request);
+  }
+}
+
 async function latestUserTurn(chatId) {
   const messages = await spindle.chat.getMessages(chatId);
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -216,7 +230,7 @@ async function generateChoices(chatId, messageId, assistantContent, userId, { fo
 
     if (connection?.id) request.connection_id = connection.id;
 
-    const result = await spindle.generate.quiet(request);
+    const result = await runQuietWithTransientRetry(request);
     const choices = parseChoices(result?.content, config.choiceCount);
 
     const state = {
@@ -244,7 +258,7 @@ async function generateChoices(chatId, messageId, assistantContent, userId, { fo
     };
     await saveState(chatId, state, userId);
     spindle.sendToFrontend({ type: "cyoa_state", state }, userId);
-    spindle.toast.warning("Choice Panel could not generate options. You can retry from the Choices tab.", userId);
+    spindle.toast.warning(`Choice Panel generation failed: ${String(err?.message || err).slice(0, 220)}`, userId);
     spindle.log.error(`Choice Panel generation failed: ${String(err)}`);
   } finally {
     generatingChats.delete(chatId);
