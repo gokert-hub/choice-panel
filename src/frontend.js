@@ -105,7 +105,7 @@ export function setup(ctx) {
     label: "Open CYOA choices",
     enabled: true,
   });
-  const unsubAction = action.onClick(() => tab.activate());
+  action.onClick(() => tab.activate());
 
   const root = tab.root;
   root.innerHTML = `<div class="cp-wrap"></div>`;
@@ -310,7 +310,6 @@ export function setup(ctx) {
   return () => {
     unsubBackend();
     unsubChat();
-    unsubAction();
     action.destroy();
     tab.destroy();
     removeStyle();
