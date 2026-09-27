@@ -1,6 +1,6 @@
 # CYOA for Lumiverse
 
-A small Spindle extension for the Rapechester / Degrees of Lewdity roleplay setup.
+A small Spindle extension for the roleplay setup.
 
 ## What it does
 
