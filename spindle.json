@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "name": "Rapechester CYOA",
+  "identifier": "rapechester_cyoa",
+  "author": "Rapechester",
+  "github": "https://github.com/gokert-hub/choice-panel",
+  "homepage": "https://github.com/gokert-hub/choice-panel",
+  "description": "Post-generation CYOA options for Lumiverse roleplay. Generates compact choices after each assistant reply without adding them to chat history or Memory Cortex.",
+  "permissions": [
+    "generation",
+    "chat_mutation",
+    "chats"
+  ],
+  "entry_backend": "dist/backend.js",
+  "entry_frontend": "dist/frontend.js",
+  "minimum_lumiverse_version": "0.1.0"
+}

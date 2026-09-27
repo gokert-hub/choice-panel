@@ -1,0 +1,6 @@
+Recommended for your current setup:
+Connection: SPA main (stealth/space-bunny-alpha)
+Choices: 4
+Temperature: 0.55
+Max output tokens: 180
+Reasoning: off (hardcoded for CYOA calls)

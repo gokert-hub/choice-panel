@@ -1,0 +1,9 @@
+{
+  "name": "choice-panel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check dist/backend.js && node --check dist/frontend.js"
+  }
+}
