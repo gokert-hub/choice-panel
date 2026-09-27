@@ -212,7 +212,6 @@ async function generateChoices(chatId, messageId, assistantContent, userId, { fo
         max_tokens: config.maxTokens,
       },
       reasoning: { source: "off" },
-      signal: AbortSignal.timeout(25000),
     };
 
     if (connection?.id) request.connection_id = connection.id;
