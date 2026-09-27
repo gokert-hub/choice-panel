@@ -145,7 +145,7 @@ export function setup(ctx) {
     }
 
     const controls = el("div", "cp-row");
-    const regen = el("button", "cp-btn", "â» Regenerate choices");
+    const regen = el("button", "cp-btn", "Regenerate choices");
     regen.type = "button";
     regen.disabled = !activeChatId || !config.enabled || !!currentState?.busy;
     regen.addEventListener("click", () => ctx.sendToBackend({ type: "regenerate_choices" }));
@@ -238,9 +238,9 @@ export function setup(ctx) {
     const max = document.createElement("input");
     max.type = "number";
     max.min = "80";
-    max.max = "400";
+    max.max = "800";
     max.step = "10";
-    max.value = String(config.maxTokens ?? 160);
+    max.value = String(config.maxTokens ?? 320);
     maxLabel.appendChild(max);
     settings.appendChild(maxLabel);
 
